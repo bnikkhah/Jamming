@@ -24,6 +24,24 @@ class App extends Component {
           artist: 'b3',
           album: 'c3'
         }
+      ],
+      playlistName: 'myPlaylist',
+      playlistTracks: [
+        {
+          name: 'a',
+          artist: 'b',
+          album: 'c'
+        },
+        {
+          name: 'a2',
+          artist: 'b2',
+          album: 'c2'
+        },
+        {
+          name: 'a3',
+          artist: 'b3',
+          album: 'c3'
+        }
       ]
     }
   };
@@ -36,7 +54,7 @@ class App extends Component {
           <SearchBar />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults}/>
-            <Playlist />
+            <Playlist playlistName={this.state.playlist} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>
       </div>
