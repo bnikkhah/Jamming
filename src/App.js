@@ -8,9 +8,26 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      searchResults: [],
+      searchResults: [
+        {
+          name: 'a',
+          artist: 'b',
+          album: 'c'
+        }
+      ],
       playlistName: 'myPlaylist',
-      playlistTracks: []
+      playlistTracks: [
+        {
+          name: 'a3',
+          artist: 'b3',
+          album: 'c3'
+        },
+        {
+          name: 'a4',
+          artist: 'b4',
+          album: 'z4'
+        }
+      ]
     }
 
     this.addTrack = this.addTrack.bind(this);
@@ -22,16 +39,19 @@ class App extends Component {
 
   addTrack(track){
     let tracks = this.state.playlistTracks;
+    let searchResults = this.state.searchResults;
+    searchResults.splice(searchResults.indexOf(track), 1);
     tracks.push(track);
     console.log(tracks);
-    this.setState = ({
-      playlistTracks: tracks
+    this.setState({
+      playlistTracks: tracks,
+      searchResults: searchResults
     });
   }
 
   removeTrack(track){
     let tracks = this.state.playlistTracks;
-    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+    tracks.splice(tracks.indexOf(track), 1);
     this.setState({
       playlistTracks: tracks
     });
