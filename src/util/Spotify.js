@@ -1,5 +1,5 @@
 const client_id = '30f47d55a704412885d6969608b9c0dd';
-const redirect_uri = 'http://localhost:3000/'
+const redirect_uri = 'https://bnikkhah.github.io/Jamming/'
 let accessToken;
 
 const Spotify = {
@@ -38,7 +38,42 @@ const Spotify = {
 				uri: track.uri
 			}));
 		})
+	},
+	savePlaylist(playlistName, trackURIs){
+		if (!playlistName || !trackURIs.length){
+			return;
+		}
+
+		const accessToken = Spotify.getAccessToken();
+		const headers = {
+			Authorization: `Bearer ${accessToken}`
+		}
+		let userID;
+		return fetch('https://api.spotify.com/v1/me', { headers: headers }
+		).then(response => {
+			return response.json();
+		}).then(jsonResponse => {
+			userID = jsonResponse.id;
+			return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+				method: 'POST',
+				headers: headers,
+				body: JSON.stringify({
+					name: playlistName
+				})
+			})
+		}).then(response => {
+			return response.json();
+		}).then(jsonResponse => {
+			const playlistID = jsonResponse.id;
+			return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+				method: 'POST',
+				headers: headers,
+				body: JSON.stringify({
+					uris: trackURIs
+				})
+			});
+		});
 	}
-}
+};
 
 export default Spotify;
