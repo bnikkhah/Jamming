@@ -1,5 +1,5 @@
 const client_id = '30f47d55a704412885d6969608b9c0dd';
-const redirect_uri = 'https://bnikkhah.github.io/Jamming/'
+const redirect_uri = 'https://bnikkhah.github.io/Jamming/';
 let accessToken;
 
 const Spotify = {

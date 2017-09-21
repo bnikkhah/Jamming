@@ -6,6 +6,12 @@ class Playlist extends React.Component{
 	constructor(props){
 		super(props);
 
+		/*setTimeout(() => {
+			console.log(this.refs.playlistTitle.value);
+			this.refs.playlistTitle.value = 'Hello Ben! ♥';
+		}, 2000);
+		ref="playlistTitle"*/
+
 		this.handleNameChange = this.handleNameChange.bind(this);
 	}
 
@@ -16,7 +22,7 @@ class Playlist extends React.Component{
 	render(){
 		return (
 			<div className="Playlist">
-				<input onChange={this.handleNameChange} defaultValue={'New Playlist'} />
+				<input id="playlistName" onChange={this.handleNameChange} defaultValue={'New Playlist'} />
 				<TrackList tracks={this.props.playlistTracks} 
 				isRemoval={true} 
 				onRemove={this.props.onRemove} />
