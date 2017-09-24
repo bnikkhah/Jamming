@@ -1,3 +1,7 @@
 .TrackList {
   width: 100%;
 }
+
+.TrackList span{
+	display: initial !important;
+}

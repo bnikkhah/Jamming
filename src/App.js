@@ -24,8 +24,9 @@ class App extends Component {
   addTrack(track){
     let tracks = this.state.playlistTracks;
     let searchResults = this.state.searchResults;
-    searchResults.splice(searchResults.indexOf(track), 1);
-    tracks.push(track);
+    if (!tracks.includes(track)){
+      tracks.push(track);
+    }
     this.setState({
       playlistTracks: tracks,
       searchResults: searchResults
