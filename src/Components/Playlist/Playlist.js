@@ -1,6 +1,7 @@
 import React from 'react';
 import TrackList from '../TrackList/TrackList';
 import './Playlist.css';
+import { RingLoader } from 'react-spinners';
 
 class Playlist extends React.Component{
 	constructor(props){
@@ -24,6 +25,10 @@ class Playlist extends React.Component{
 		return (
 			<div className="Playlist">
 				<input id="playlistName" onChange={this.handleNameChange} defaultValue={'New Playlist'} onKeyDown={this.handleEnterKey}/>
+	            <RingLoader
+	              color={'#123abc'} 
+	              loading={this.props.loadingPlaylist} 
+	            />
 				<TrackList tracks={this.props.playlistTracks} 
 				isRemoval={true} 
 				onRemove={this.props.onRemove} />

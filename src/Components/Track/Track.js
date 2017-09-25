@@ -1,6 +1,5 @@
 import React from 'react';
 import './Track.css';
-//var MappleToolTip = require('reactjs-mappletooltip');
 import MappleToolTip from 'reactjs-mappletooltip';
 
 class Track extends React.Component{
@@ -29,18 +28,20 @@ class Track extends React.Component{
 
 	render(){
 		return (
-			<MappleToolTip direction={'left'} mappleType={'default'} shadow={false} fadeInAnimation={false} padding={'0'} float={false}>
-				<div className="Track">
-					<div className="Track-information">
-						<h3>{this.props.track.name}</h3>
-						<p>{this.props.track.artist} | {this.props.track.album}</p>
+			<div>
+				<MappleToolTip direction={'left'} fadeInAnimation={true} padding={'0'}>
+					<div className="Track">
+						<div className="Track-information">
+							<h3>{this.props.track.name}</h3>
+							<p>{this.props.track.artist} | {this.props.track.album}</p>
+						</div>
+						{this.renderAction()}
 					</div>
-					{this.renderAction()}
-				</div>
-				<div>
-					<img src={this.props.track.image} alt={`${this.props.track.image}`}/>
-				</div>
-			</MappleToolTip>
+					<div>
+						<img src={this.props.track.image} alt={`${this.props.track.image}`}/>
+					</div>
+				</MappleToolTip>
+			</div>
 		);
 	}
 }

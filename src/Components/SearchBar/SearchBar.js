@@ -1,6 +1,5 @@
 import React from 'react';
 import './SearchBar.css';
-import Spotify from '../../util/Spotify';
 
 class SearchBar extends React.Component{
 	constructor(props){
@@ -12,10 +11,7 @@ class SearchBar extends React.Component{
 
 		this.search = this.search.bind(this);
 		this.handleTermChange = this.handleTermChange.bind(this);
-		//this.login = this.login.bind(this);
 		this.handleEnterKey = this.handleEnterKey.bind(this);
-
-		//document.getElementById('search-input').value = localStorage.getItem('text');
 	}
 
 	search(){
@@ -26,12 +22,7 @@ class SearchBar extends React.Component{
 		this.setState({
 			term: e.target.value
 		});
-		 //localStorage.setItem("text", e.target.value);
 	}
-
-	/*login(e){
-		Spotify.getAccessToken();
-	}*/
 
 	handleEnterKey(e){
 		if (e.keyCode === 13){
@@ -42,7 +33,7 @@ class SearchBar extends React.Component{
 	render(){
 		return (
 			<div className="SearchBar">
-				<input id="search-input" placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange} onKeyDown={this.handleEnterKey} autoFocus/>
+				<input defaultValue={this.state.term} id="search-input" placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange} onKeyDown={this.handleEnterKey} autoFocus/>
 				<a id="search" onClick={this.search}>SEARCH</a>
 			</div>
 		);
