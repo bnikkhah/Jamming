@@ -8,6 +8,11 @@ class Track extends React.Component{
 
 		this.addTrack = this.addTrack.bind(this);
 		this.removeTrack = this.removeTrack.bind(this);
+		this.previewSample = this.previewSample.bind(this);
+	}
+
+	previewSample(e){
+		this.props.onPreview(this.props.track.id);
 	}
 
 	addTrack(e){
@@ -29,16 +34,17 @@ class Track extends React.Component{
 	render(){
 		return (
 			<div>
-				<MappleToolTip direction={'left'} fadeInAnimation={true} padding={'0'}>
+				<MappleToolTip direction={'right'} fadeInAnimation={true} padding={'0'}>
 					<div className="Track">
 						<div className="Track-information">
 							<h3>{this.props.track.name}</h3>
 							<p>{this.props.track.artist} | {this.props.track.album}</p>
+							<a id="playPreview" onClick={this.previewSample}>Preview</a>
 						</div>
 						{this.renderAction()}
 					</div>
 					<div>
-						<img src={this.props.track.image} alt={`${this.props.track.image}`}/>
+						<img src={this.props.track.image} alt={this.props.track.image}/>
 					</div>
 				</MappleToolTip>
 			</div>

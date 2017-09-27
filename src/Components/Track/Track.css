@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(256, 256, 256, 0.8);
+  padding: 10px 0 10px 0;
   transition: background-color 200ms ease-out;
 }
 
@@ -36,4 +37,14 @@
   font-size: .83rem;
   font-weight: 300;
   color: rgba(256, 256, 256, 0.8);
+}
+
+.Track-information a {
+  color: #DA70D6;
+  cursor: pointer;
+  transition: color 200ms ease-in-out;
+}
+
+.Track-information a:hover {
+  color: #fff;
 }

@@ -16,6 +16,7 @@ class SearchBar extends React.Component{
 
 	search(){
 		this.props.onSearch(this.state.term);
+		window.localStorage.setItem('searchText', this.state.term);
 	}
 
 	handleTermChange(e){
@@ -33,7 +34,7 @@ class SearchBar extends React.Component{
 	render(){
 		return (
 			<div className="SearchBar">
-				<input defaultValue={this.state.term} id="search-input" placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange} onKeyDown={this.handleEnterKey} autoFocus/>
+				<input id="search-input" placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange} onKeyDown={this.handleEnterKey} autoFocus/>
 				<a id="search" onClick={this.search}>SEARCH</a>
 			</div>
 		);

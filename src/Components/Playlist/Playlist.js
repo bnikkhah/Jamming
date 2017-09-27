@@ -27,11 +27,12 @@ class Playlist extends React.Component{
 				<input id="playlistName" onChange={this.handleNameChange} defaultValue={'New Playlist'} onKeyDown={this.handleEnterKey}/>
 	            <RingLoader
 	              color={'#123abc'} 
-	              loading={this.props.loadingPlaylist} 
+	              loading={this.props.loader} 
 	            />
 				<TrackList tracks={this.props.playlistTracks} 
 				isRemoval={true} 
-				onRemove={this.props.onRemove} />
+				onRemove={this.props.onRemove} 
+				onPreview={this.props.onPreview}/>
 				<a id="save-playlist" className="Playlist-save" onClick={this.props.onSave}>SAVE TO SPOTIFY</a>
 			</div>
 		);

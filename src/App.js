@@ -12,7 +12,9 @@ class App extends Component {
       searchResults: [],
       playlistName: 'New Playlist',
       playlistTracks: [],
-      loading: false
+      loading: false,
+      audio: null,
+      id: ''
     }
 
     this.addTrack = this.addTrack.bind(this);
@@ -20,17 +22,46 @@ class App extends Component {
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.previewSample = this.previewSample.bind(this);
   };
+
+  previewSample(trackID){
+    if (trackID === this.state.id && !this.state.audio.paused){
+      this.state.audio.pause();
+      return;
+    }else{
+      if (this.state.audio != null && trackID !== this.state.id){
+        this.state.audio.pause();
+      }else{
+        if (this.state.audio != null){
+          this.state.audio.play();
+          return;
+        }
+      }
+    }
+    Spotify.previewSample(trackID).then(previewURL => {
+      if (previewURL === null){
+        alert("Sorry, but there is no preview for this track.");
+        return;
+      }else{
+        let audio = new Audio(previewURL);
+        audio.play();
+
+        this.setState({
+          audio: audio,
+          id: trackID
+        })
+      }
+    });
+  }
 
   addTrack(track){
     let tracks = this.state.playlistTracks;
-    let searchResults = this.state.searchResults;
     if (!tracks.includes(track)){
       tracks.push(track);
     }
     this.setState({
-      playlistTracks: tracks,
-      searchResults: searchResults
+      playlistTracks: tracks
     });
   }
 
@@ -83,14 +114,15 @@ class App extends Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar onSearch={this.search} />
+          <SearchBar onSearch={this.search}/>
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onPreview={this.previewSample}/>
             <Playlist playlistTracks={this.state.playlistTracks} 
                       onRemove={this.removeTrack} 
                       onNameChange={this.updatePlaylistName}
                       onSave={this.savePlaylist}
-                      loadingPlaylist={this.state.loading}/>
+                      loader={this.state.loading}
+                      onPreview={this.previewSample}/>
           </div>
         </div>
       </div>
