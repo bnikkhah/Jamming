@@ -103,6 +103,24 @@ class App extends Component {
       return;
     }
     Spotify.search(term).then(searchResults => {
+      if (Spotify.getExistingPlaylists().length !== 0){
+        Spotify.getExistingPlaylists().then(promiseArray => {
+          Promise.all(promiseArray).then(results => {
+            results.forEach(array => {
+              array.forEach(track => {
+                for (let i = 0; i < searchResults.length; i++){
+                  if (searchResults[i].id === track.id){
+                    searchResults.splice(i, 1);
+                    this.setState({
+                      searchResults: searchResults
+                    });
+                  }
+                }
+              })
+            })
+          })
+        })
+      }
       this.setState({
         searchResults: searchResults
       });

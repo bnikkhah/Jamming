@@ -21,6 +21,35 @@ const Spotify = {
 	      window.location = accessUrl;
 	    }
 	},
+	getExistingPlaylists(){
+		const accessToken = Spotify.getAccessToken();
+		const headers = {
+			Authorization: `Bearer ${accessToken}`
+		}
+		let userID;
+		
+		return fetch(`https://api.spotify.com/v1/me`, { headers: headers}
+		).then(response => {
+			return response.json();
+		}).then(jsonResponse => {
+			userID = jsonResponse.id;
+			return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, { headers: headers });
+		}).then(response => {
+			return response.json();
+		}).then(jsonResponse => {
+			return jsonResponse.items.map(playlist => {
+				let playlistID = playlist.id;
+				return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, { headers: headers }
+				).then(response => {
+					return response.json();
+				}).then(jsonResponse => {
+					return jsonResponse.items.map(item => ({
+						id: item.track.id
+					}));
+				})
+			})
+		})
+	},
 	previewSample(id){
 		const accessToken = Spotify.getAccessToken();
 		return fetch(`https://api.spotify.com/v1/tracks/${id}`, {
